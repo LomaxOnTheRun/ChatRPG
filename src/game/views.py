@@ -3,6 +3,7 @@ from django import forms as django_forms
 from django.views import generic
 
 from . import forms, models
+from .domain import gm_descriptions
 
 
 class Home(generic.TemplateView):
@@ -42,10 +43,10 @@ class OnePlayerGameStart(generic.FormView):
     def get_context_data(self, **kwargs: object) -> dict[str, object]:
         context = super().get_context_data(**kwargs)
 
-        character_id = self.kwargs["character_id"]
-        context["character"] = models.Character.objects.get(id=character_id)
+        character = models.Character.objects.get(id=self.kwargs["character_id"])
+        context["character"] = character
 
-        context["gm_description"] = "You find yourself in a tavern..."
+        context["gm_description"] = gm_descriptions.get_one_player_game_intro(character)
 
         return context
 
