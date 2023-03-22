@@ -1,10 +1,12 @@
 <h1>ChatRPG</h1>
 
-<p>Start a new one-player game with:</p>
-<ul>
-    {% for character in characters %}
-        <li><a href=/one-player-game/{{character.id}}>{{ character.name }}</a></li>
-    {% endfor %}
-</ul>
+{% if characters %}
+    <p>Start a new one-player game with:</p>
+    <ul>
+        {% for character in characters %}
+            <li><a href=/one-player-game/{{character.id}}>{{ character.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 To create a new character, click <a href="/character-creation">here</a>
