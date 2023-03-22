@@ -36,3 +36,7 @@ It's recommended to have a `.env` file at the top of the repository, with the va
 
 * `DJANGO_SECRET_KEY`
 * `OPENAI_API_KEY` (you'll need to get this from your OpenAI account)
+
+## Admin page
+
+All data saved can be viewed in the Django admin page, even if there isn't a page for it yet (e.g. character descriptions, historical games).
