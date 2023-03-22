@@ -1,0 +1,25 @@
+<h1>One-player game</h1>
+
+<h2>Character: {{ character.name }}</h2>
+
+<p>Race: {{ character.race_name }}</p>
+<p>Class: {{ character.class_name }}</p>
+
+<h2>Story so far...</h2>
+
+{% for game_turn in game_turns %}
+    {% if game_turn.character %}
+        <h3>{{ character.name }}:</h3>
+    {% else %}
+        <h3>DM:</h3>
+    {% endif %}
+
+    <p>{{ game_turn.description }}</p>
+{% endfor %}
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">
+        Continue adventure
+    </button>
+</form>

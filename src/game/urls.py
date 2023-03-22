@@ -15,4 +15,9 @@ urlpatterns = [
         views.OnePlayerGameStart.as_view(),
         name="one_player_game_start",
     ),
+    path(
+        "one-player-game/<int:character_id>/<int:one_player_game_id>",
+        views.OnePlayerGame.as_view(),
+        name="one_player_game_start",
+    ),
 ]

@@ -82,3 +82,48 @@ class OnePlayerGameStart(generic.FormView):
         )
 
         return http.HttpResponseRedirect(f"/one-player-game/{character.id}/{game.id}")
+
+
+class OnePlayerGame(generic.FormView):
+    template_name = "one-player-game.html"
+    form_class = django_forms.Form  # We just need a "submit button"
+
+    def get_context_data(self, **kwargs: object) -> dict[str, object]:
+        context = super().get_context_data(**kwargs)
+
+        character = models.Character.objects.get(id=self.kwargs["character_id"])
+        context["character"] = character
+
+        game_id = self.kwargs["one_player_game_id"]
+        game_turns = models.OnePlayerGameTurn.objects.filter(game_id=game_id).order_by(
+            "created_at"
+        )
+        context["game_turns"] = game_turns
+
+        return context
+
+    def form_valid(self, form: django_forms.Form) -> http.HttpResponse:
+        context = self.get_context_data()
+        character = context["character"]
+        game_turns = context["game_turns"]
+
+        last_game_turn = game_turns.last()
+        game = last_game_turn.game
+
+        if last_game_turn.character is None:
+            # It's now the player's turn
+            description = player_descriptions.get_one_player_game_next_description(
+                character, game
+            )
+            models.OnePlayerGameTurn.objects.create(
+                game=game,
+                character=character,
+                description=description,
+            )
+        else:
+            # It's now the GM's turn
+            # TODO: Create a new domain function for this
+            pass
+
+        # Reload the same page
+        return http.HttpResponseRedirect("")
