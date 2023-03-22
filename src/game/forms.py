@@ -1,6 +1,6 @@
 from django import forms
 
-from . import domain
+from .domain import character_creation
 
 
 class CharacterCreationForm(forms.Form):
@@ -21,7 +21,7 @@ class CharacterCreationForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         # Get character description
-        character_description = domain.get_openai_character_description()
+        character_description = character_creation.get_openai_character_description()
         self.fields["name"].initial = character_description.name
         self.fields["race_name"].initial = character_description.race_name
         self.fields["class_name"].initial = character_description.class_name
