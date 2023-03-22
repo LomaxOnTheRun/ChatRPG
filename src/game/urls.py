@@ -6,17 +6,17 @@ from . import views
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),
     path(
-        "character-creation",
+        "character-creation/",
         views.CharacterCreation.as_view(),
         name="character_creation",
     ),
     path(
-        "one-player-game/<int:character_id>",
+        "one-player-game/<int:character_id>/",
         views.OnePlayerGameStart.as_view(),
         name="one_player_game_start",
     ),
     path(
-        "one-player-game/<int:character_id>/<int:one_player_game_id>",
+        "one-player-game/<int:character_id>/<int:one_player_game_id>/",
         views.OnePlayerGame.as_view(),
         name="one_player_game_start",
     ),
