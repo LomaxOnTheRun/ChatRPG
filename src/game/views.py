@@ -46,10 +46,24 @@ class OnePlayerGameStart(generic.FormView):
         character = models.Character.objects.get(id=self.kwargs["character_id"])
         context["character"] = character
 
-        context["gm_description"] = gm_descriptions.get_one_player_game_intro(character)
+        context["intro_description"] = gm_descriptions.get_one_player_game_intro(
+            character
+        )
 
         return context
 
     def form_valid(self, form: django_forms.Form) -> http.HttpResponse:
-        # TODO: Link to one-player game page for character
-        return http.HttpResponseRedirect("/")
+        context = self.get_context_data()
+        character = context["character"]
+
+        # Create a new game, and the initial turn for that game
+        one_player_game = models.OnePlayerGame.objects.create(character=character)
+        models.OnePlayerGameTurn.objects.create(
+            game=one_player_game,
+            character=None,  # The GM
+            description=context["intro_description"],
+        )
+
+        return http.HttpResponseRedirect(
+            f"/one-player-game/{character.id}/{one_player_game.id}"
+        )
