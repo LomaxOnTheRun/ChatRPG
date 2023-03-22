@@ -1,4 +1,5 @@
-from django import forms, http
+from django import http
+from django import forms as django_forms
 from django.views import generic
 
 from . import forms, models
@@ -32,3 +33,22 @@ class CharacterCreation(generic.FormView):
             )
 
         return super().form_valid(form)
+
+
+class OnePlayerGameStart(generic.FormView):
+    template_name = "one-player-game-start.html"
+    form_class = django_forms.Form  # We just need a "submit button"
+
+    def get_context_data(self, **kwargs: object) -> dict[str, object]:
+        context = super().get_context_data(**kwargs)
+
+        character_id = self.kwargs["character_id"]
+        context["character"] = models.Character.objects.get(id=character_id)
+
+        context["gm_description"] = "You find yourself in a tavern..."
+
+        return context
+
+    def form_valid(self, form: django_forms.Form) -> http.HttpResponse:
+        # TODO: Link to one-player game page for character
+        return http.HttpResponseRedirect("/")

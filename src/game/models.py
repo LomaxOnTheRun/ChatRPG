@@ -12,3 +12,11 @@ class Character(models.Model):
     # Audit fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class OnePlayerGame(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.deletion.CASCADE)
+
+    # Audit fields
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
