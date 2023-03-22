@@ -24,8 +24,8 @@ class CharacterCreationForm(forms.Form):
         # Get character description
         character_description = domain.get_openai_character_description()
         self.fields["name"].initial = character_description.name
-        self.fields["race_name"].initial = character_description.race
-        self.fields["class_name"].initial = character_description.class_
+        self.fields["race_name"].initial = character_description.race_name
+        self.fields["class_name"].initial = character_description.class_name
         self.fields[
             "visual_description"
         ].initial = character_description.visual_description

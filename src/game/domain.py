@@ -8,8 +8,8 @@ import openai
 class CharacterDescription:
     full_description: str
     name: str
-    race: str
-    class_: str
+    race_name: str
+    class_name: str
     visual_description: str
     personality: str
     backstory: str
@@ -48,8 +48,8 @@ def _get_character_description(full_description: str) -> CharacterDescription:
     full_description = full_description.replace("\n", " ")
 
     name = _get_attribute(r".*Name:(.*?)Race:.*", full_description)
-    race = _get_attribute(r".*Race:(.*?)Class:.*", full_description)
-    class_ = _get_attribute(r".*Class:(.*?)Visual Description:.*", full_description)
+    race_name = _get_attribute(r".*Race:(.*?)Class:.*", full_description)
+    class_name = _get_attribute(r".*Class:(.*?)Visual Description:.*", full_description)
     visual_description = _get_attribute(
         r".*Visual Description:(.*?)Personality:.*", full_description
     )
@@ -57,7 +57,13 @@ def _get_character_description(full_description: str) -> CharacterDescription:
     backstory = _get_attribute(r".*Backstory:(.*)", full_description)
 
     return CharacterDescription(
-        full_description, name, race, class_, visual_description, personality, backstory
+        full_description,
+        name,
+        race_name,
+        class_name,
+        visual_description,
+        personality,
+        backstory,
     )
 
 
