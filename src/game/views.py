@@ -122,8 +122,14 @@ class OnePlayerGame(generic.FormView):
             )
         else:
             # It's now the GM's turn
-            # TODO: Create a new domain function for this
-            pass
+            description = gm_descriptions.get_one_player_game_next_description(
+                character, game
+            )
+            models.OnePlayerGameTurn.objects.create(
+                game=game,
+                character=None,
+                description=description,
+            )
 
         # Reload the same page
         return http.HttpResponseRedirect("")
