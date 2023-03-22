@@ -5,6 +5,10 @@ from .. import models
 
 
 def get_one_player_game_intro(character: models.Character) -> str:
+    """
+    Get an intro description to an adventure for a given character.
+    """
+
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[

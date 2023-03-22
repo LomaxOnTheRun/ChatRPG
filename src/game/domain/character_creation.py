@@ -18,11 +18,20 @@ class CharacterDescription:
 def get_openai_character_description(
     character_prompt: str = "",
 ) -> CharacterDescription:
+    """
+    Get a randomly generated character from OpenAI.
+    """
+
     full_description = _get_full_character_description(character_prompt)
     return _get_character_description(full_description)
 
 
 def _get_full_character_description(character_prompt: str) -> str:
+    """
+    Generate a bulk of information, that we later try to parse to pull out the
+    specifically requested attributes.
+    """
+
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
