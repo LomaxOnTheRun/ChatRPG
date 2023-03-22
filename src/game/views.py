@@ -15,7 +15,7 @@ class CharacterCreationForm(forms.Form):
         label="Personality", max_length=1000, widget=forms.Textarea
     )
     backstory = forms.CharField(
-        label="Backstory", max_length=1000, widget=forms.Textarea
+        label="Backstory", max_length=2000, widget=forms.Textarea
     )
 
     def __init__(self, *args: object, **kwargs: object) -> None:
