@@ -1,3 +1,10 @@
 <h1>ChatRPG</h1>
 
-<a href="/character-creation">Character creation</a>
+<p>Start a new one-player game with:</p>
+<ul>
+    {% for character in characters %}
+        <li><a href=/one-player-game/{{character.id}}>{{ character.name }}</a></li>
+    {% endfor %}
+</ul>
+
+To create a new character, click <a href="/character-creation">here</a>
