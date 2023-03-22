@@ -20,3 +20,18 @@ class OnePlayerGame(models.Model):
     # Audit fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class OnePlayerGameTurn(models.Model):
+    game = models.ForeignKey(
+        OnePlayerGame, on_delete=models.deletion.CASCADE, related_name="turns"
+    )
+    # If character is null, it's the GM's turn
+    character = models.ForeignKey(
+        Character, on_delete=models.deletion.CASCADE, null=True
+    )
+    description = models.CharField(max_length=2000)
+
+    # Audit fields
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
