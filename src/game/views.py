@@ -4,6 +4,10 @@ from django.views import generic
 from . import forms, models
 
 
+class Home(generic.TemplateView):
+    template_name = "home.html"
+
+
 class CharacterCreation(generic.FormView):
     template_name = "character-creation.html"
     form_class = forms.CharacterCreationForm
