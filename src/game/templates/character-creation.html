@@ -1,17 +1,15 @@
-This is the character creation page.
-</br></br>
-Name: {{ name }}
-</br></br>
-Race: {{ race }}
-</br></br>
-Class: {{ class }}
-</br></br>
-Visual description: {{ visual_description }}
-</br></br>
-Personality: {{ personality }}
-</br></br>
-Backstory: {{ backstory }}
-</br></br>
-***
-</br></br>
-Full description: {{ full_description }}
+<h1>Character creation</h1>
+
+<p><i>Refresh the page to generate a new character.</i></p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {% for field in form %}
+        {{ field.label_tag }}
+        <br/>
+        {{ field }}
+        {{ field.errors }}
+        <br/><br/>
+    {% endfor %}
+</form>
